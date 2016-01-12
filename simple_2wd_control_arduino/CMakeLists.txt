@@ -18,5 +18,5 @@ rosserial_configure_client(
   TOOLCHAIN_FILE ${ROSSERIAL_ARDUINO_TOOLCHAIN}
 )
 
-rosserial_add_client_target(firmware hello ALL)
-rosserial_add_client_target(firmware hello-upload)
+rosserial_add_client_target(firmware controller ALL)
+rosserial_add_client_target(firmware controller-upload)

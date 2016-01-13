@@ -1,3 +1,5 @@
+//#define USE_USBCON 0
+
 #include <ros.h>
 #include <std_msgs/String.h>
 //#include <std_msgs/UInt16.h>
@@ -15,6 +17,7 @@ AF_DCMotor left_motor(2, MOTOR12_64KHZ);
 AF_DCMotor right_motor(1, MOTOR12_64KHZ);
 
 int led = 13;
+bool led_on = false;
 
 
 unsigned long last_cmd_time;
@@ -43,6 +46,14 @@ void command_cb( const simple_arduino_control_msgs::DiffDriveCommand& cmd_msg){
     right_motor.setSpeed(-cmd_msg.right_motor_cmd*2);
   }
 
+  if (led_on){
+    digitalWrite(led, HIGH);
+  }else{
+    digitalWrite(led, LOW);
+  }
+
+  led_on = !led_on;
+
 }
 
 
@@ -59,5 +70,5 @@ void setup()
 void loop()
 {
   nh.spinOnce();
-  delay(1);
+  delay(500);
 }

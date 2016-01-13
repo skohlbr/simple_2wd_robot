@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
 
 <launch>
-    <node pkg="rosserial_python" type="serial_node.py" name="controller_arduino" args="/dev/ttyUSB0" output="screen">
-    </node>
+  <!--    
+  <node pkg="rosserial_python" type="serial_node.py" name="controller_arduino" args="/dev/ttyUSB0" output="screen">
+  </node>
+  -->
+  
+  <include file="$(find rosserial_server)/launch/serial.launch">
+    <arg name="port" value="/dev/ttyUSB0" />
+  </include>
 </launch>
 

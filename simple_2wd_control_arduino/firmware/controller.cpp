@@ -1,7 +1,7 @@
 //#define USE_USBCON 0
 
 #include <ros.h>
-#include <std_msgs/String.h>
+//#include <std_msgs/String.h>
 //#include <std_msgs/UInt16.h>
 #include <simple_arduino_control_msgs/DiffDriveCommand.h>
 
@@ -9,20 +9,30 @@
 
 
 #include <Arduino.h>
+int led = 13;
+bool led_on = false;
+
+
 #include <AFMotor.h>
-
-ros::NodeHandle nh;
-
 AF_DCMotor left_motor(2, MOTOR12_64KHZ);
 AF_DCMotor right_motor(1, MOTOR12_64KHZ);
 
-int led = 13;
-bool led_on = false;
+
+ros::NodeHandle nh;
+
+simple_arduino_control_msgs::DiffDriveCommand cmd_debug;
+ros::Publisher cmd_debug_pub("cmd_debug", &cmd_debug);
+
+
+
 
 
 unsigned long last_cmd_time;
 
 void command_cb( const simple_arduino_control_msgs::DiffDriveCommand& cmd_msg){
+
+  cmd_debug = cmd_msg;
+
 
   if (cmd_msg.left_motor_cmd == 0){
     left_motor.run(RELEASE);
@@ -46,6 +56,7 @@ void command_cb( const simple_arduino_control_msgs::DiffDriveCommand& cmd_msg){
     right_motor.setSpeed(-cmd_msg.right_motor_cmd*2);
   }
 
+
   if (led_on){
     digitalWrite(led, HIGH);
   }else{
@@ -59,10 +70,14 @@ void command_cb( const simple_arduino_control_msgs::DiffDriveCommand& cmd_msg){
 
 ros::Subscriber<simple_arduino_control_msgs::DiffDriveCommand> sub("move_command_raw", command_cb);
 
+
 void setup()
 {
+  pinMode(led, OUTPUT);
 
   nh.initNode();
+
+  nh.advertise(cmd_debug_pub);
 
   nh.subscribe(sub);
 }
@@ -70,5 +85,16 @@ void setup()
 void loop()
 {
   nh.spinOnce();
-  delay(500);
+  cmd_debug_pub.publish(&cmd_debug);
+  delay(10);
+
+  /*
+  if (led_on){
+    digitalWrite(led, HIGH);
+  }else{
+    digitalWrite(led, LOW);
+  }
+
+  led_on = !led_on;
+  */
 }

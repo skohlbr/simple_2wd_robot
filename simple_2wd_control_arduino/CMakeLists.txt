@@ -4,6 +4,7 @@ project(simple_2wd_control_arduino)
 find_package(catkin REQUIRED COMPONENTS
   rosserial_arduino
   rosserial_client
+  simple_arduino_control_msgs
 )
 
 catkin_package()

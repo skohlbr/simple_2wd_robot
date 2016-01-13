@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+    <node pkg="rosserial_python" type="serial_node.py" name="controller_arduino" args="/dev/ttyUSB0" output="screen">
+    </node>
+</launch>
+

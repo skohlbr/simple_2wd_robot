@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<launch>
+  <include file="$(find simple_2wd_control_arduino)/launch/default_controller.launch"/>
+
+  <include file="$(find raspicam)/launch/default.launch"/>  
+</launch>

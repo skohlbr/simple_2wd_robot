@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+  <node name="joy_node" pkg="joy" type="joy_node" respawn="false" output="screen" >
+    <param name="dev" type="string" value="/dev/input/js1"/>
+  </node>
+  
+  <node name="joystick_control_node" pkg="simple_arduino_control" type="joystick_control_node" respawn="false" output="screen">
+    <param name="axis_speed" type="int" value="1"/>
+    <param name="axis_steer" type="int" value="0"/>
+    <param name="axis_speed_dead_zone" type="double" value="0.05"/>
+    <param name="axis_steer_dead_zone" type="double" value="0.05"/>
+  </node>
+</launch>

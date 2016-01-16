@@ -43,8 +43,8 @@ namespace simple_joy_control {
     //twistCommand.linear.x = speed;
     //twistCommand.angular.z = angRateSpeed;
     
-    float mag_left = speed + angRate;
-    float mag_right = speed - angRate;
+    float mag_left = speed - angRate;
+    float mag_right = speed + angRate;
     
     float mag_max = std::max(mag_left, mag_right);
     

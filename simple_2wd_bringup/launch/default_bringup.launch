@@ -3,5 +3,15 @@
 <launch>
   <include file="$(find simple_2wd_control_arduino)/launch/default_controller.launch"/>
 
-  <include file="$(find raspicam)/launch/default.launch"/>  
+  <include file="$(find raspicam)/launch/default.launch"/>
+
+  <node pkg="topic_tools" type="relay" name="image_teleop_relay" args="/raspicam/camera/image/compressed /compressed_image" />
+  
+  <node name="joystick_control_node" pkg="simple_arduino_control" type="joystick_control_node" respawn="false" output="screen">
+    <param name="axis_speed" type="int" value="1"/>
+    <param name="axis_steer" type="int" value="0"/>
+    <param name="axis_speed_dead_zone" type="double" value="0.05"/>
+    <param name="axis_steer_dead_zone" type="double" value="0.05"/>
+  </node>
+   
 </launch>

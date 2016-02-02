@@ -1,11 +1,9 @@
+
+
 //#define USE_USBCON 0
 
 #include <ros.h>
-//#include <std_msgs/String.h>
-//#include <std_msgs/UInt16.h>
 #include <simple_arduino_control_msgs/DiffDriveCommand.h>
-
-//#include "../ros_lib/simple_arduino_control_msgs/DiffDriveCommand.h"
 
 
 #include <Arduino.h>
@@ -22,10 +20,6 @@ ros::NodeHandle nh;
 
 simple_arduino_control_msgs::DiffDriveCommand cmd_debug;
 ros::Publisher cmd_debug_pub("cmd_debug", &cmd_debug);
-
-
-
-
 
 unsigned long last_cmd_time;
 
@@ -87,14 +81,4 @@ void loop()
   nh.spinOnce();
   cmd_debug_pub.publish(&cmd_debug);
   delay(10);
-
-  /*
-  if (led_on){
-    digitalWrite(led, HIGH);
-  }else{
-    digitalWrite(led, LOW);
-  }
-
-  led_on = !led_on;
-  */
 }

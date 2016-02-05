@@ -27,7 +27,7 @@ namespace simple_joy_control {
   void updateCommand(float speed_in, float angRate_in)
   {
     float speed = speed_in;
-    float angRate = speed_in;
+    float angRate = angRate_in;
 
     if (std::abs(speed) < axis_speed_dead_zone){
      speed = 0.0f;
